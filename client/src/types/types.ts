@@ -11,5 +11,11 @@ export type Activity = {
 };
 
 export type Post = {
+  _id: string;
+  platforms: string[];
+  mediaType: string;
+  scheduledFor: Date;
+  updatedAt: Date;
+  content: string;
   status: "scheduled" | "published" | string;
 };
