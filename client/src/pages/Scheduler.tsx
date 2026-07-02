@@ -228,7 +228,7 @@ const Scheduler = () => {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex gap-1.5 items-center">
-                      {post.platforms.map((pl: string) => {
+                      {post.platforms?.map((pl: string) => {
                         const meta = PLATFORMS.find((p) => p.id === pl);
                         return meta ? (
                           <meta.icon
@@ -249,7 +249,9 @@ const Scheduler = () => {
                         </span>
                       )}
                       <span className="text-xs text-slate-400">
-                        {new Date(post.scheduledFor).toLocaleString()}
+                        {new Date(
+                          post.scheduledFor ? post.scheduledFor : "",
+                        ).toLocaleString()}
                       </span>
                     </div>
                   </div>
@@ -285,7 +287,7 @@ const Scheduler = () => {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex gap-1.5 items-center">
-                      {post.platforms.map((pl: string) => {
+                      {post.platforms?.map((pl: string) => {
                         const meta = PLATFORMS.find((p) => p.id === pl);
                         return meta ? (
                           <meta.icon

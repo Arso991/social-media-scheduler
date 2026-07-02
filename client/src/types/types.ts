@@ -12,10 +12,15 @@ export type Activity = {
 
 export type Post = {
   _id: string;
-  platforms: string[];
-  mediaType: string;
-  scheduledFor: Date;
-  updatedAt: Date;
+  user: string;
+  prompt: string;
+  platforms?: string[] | [];
+  mediaType?: string | null;
+  mediaUrl: string;
+  tone: string;
+  scheduledFor?: Date | null;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   content: string;
-  status: "scheduled" | "published" | string;
+  status?: "scheduled" | "published" | string | null;
 };
