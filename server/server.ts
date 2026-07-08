@@ -1,0 +1,36 @@
+import "dotenv/config";
+import express, { NextFunction, Request, Response } from "express";
+import cors from "cors";
+import connectDB from "./config/db.js";
+import authRouter from "./routes/authRoutes.js";
+import socialAuthRouter from "./routes/socialAuthRoutes.js";
+import { protect } from "./middlewares/authMiddleware.js";
+
+const app = express();
+
+// Database connection
+await connectDB();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+const port = process.env.PORT || 3000;
+
+app.get("/", (_req: Request, res: Response) => {
+  res.send("Server is Live!");
+});
+
+//Auth
+app.use("/api/auth", authRouter);
+app.use("/api/oauth/", protect, socialAuthRouter);
+
+//Global Error handler
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+  res.status(500).send(err?.response?.data?.message || err?.message);
+});
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
