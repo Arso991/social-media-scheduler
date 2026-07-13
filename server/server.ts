@@ -7,6 +7,8 @@ import socialAuthRouter from "./routes/socialAuthRoutes.js";
 import { protect } from "./middlewares/authMiddleware.js";
 import accountRouter from "./routes/accountRoutes.js";
 import postRouter from "./routes/postRoutes.js";
+import activitiesRouter from "./routes/activityLogRoutes.js";
+import { initScheduler } from "./services/schedulerService.js";
 
 const app = express();
 
@@ -30,6 +32,11 @@ app.use("/api/oauth/", protect, socialAuthRouter);
 app.use("/api/accounts/", protect, accountRouter);
 //Posts
 app.use("/api/posts", protect, postRouter);
+//ActivityLog
+app.use("/api/activities", protect, activitiesRouter);
+
+//Initialize Scheduler
+initScheduler();
 
 //Global Error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
