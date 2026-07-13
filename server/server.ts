@@ -5,6 +5,8 @@ import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoutes.js";
 import socialAuthRouter from "./routes/socialAuthRoutes.js";
 import { protect } from "./middlewares/authMiddleware.js";
+import accountRouter from "./routes/accountRoutes.js";
+import postRouter from "./routes/postRoutes.js";
 
 const app = express();
 
@@ -24,6 +26,10 @@ app.get("/", (_req: Request, res: Response) => {
 //Auth
 app.use("/api/auth", authRouter);
 app.use("/api/oauth/", protect, socialAuthRouter);
+//Accounts
+app.use("/api/accounts/", protect, accountRouter);
+//Posts
+app.use("/api/posts", protect, postRouter);
 
 //Global Error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
